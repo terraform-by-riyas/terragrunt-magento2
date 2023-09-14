@@ -11,7 +11,7 @@ terraform {
 }
 
 dependencies {
-  paths = ["../aws-data","../vpc"]
+  paths = ["../aws-data", "../vpc"]
 }
 
 dependency "aws-data" {
@@ -30,8 +30,8 @@ inputs = {
     spot_wait_for_fulfillment = true
     key_name               = "temp-key"
     monitoring             = false
-    vpc_security_group_ids = ["sg-069d560c89e9d9119"]
-    subnet_id = dependency.vpc.private_subnets[0]
+    vpc_security_group_ids = ["sg-01c9bcb2cf7665350"]
+    subnet_id = dependency.vpc.outputs.private_subnets[0]
     tags = {
       Terraform   = "true"
       Environment = "${local.common_vars.environment}"

@@ -24,15 +24,12 @@ dependency "aws-data" {
 inputs = {
   # A list of availability zones names or ids in the region
   # type: list(string)
-  azs = [for v in dependency.aws-data.outputs.available_aws_availability_zones_names: v]
+azs = slice([for v in dependency.aws-data.outputs.available_aws_availability_zones_names: v],0,1)
 
   # The CIDR block for the VPC. Default value is a valid CIDR, but not acceptable by AWS and should be overridden
   # type: string
   cidr = "10.0.0.0/16"
 
-  # A list of database subnets
-  # type: list(string)
-  database_subnets = [for k,v in dependency.aws-data.outputs.available_aws_availability_zones_names: cidrsubnet("10.0.0.0/16", 8, k+20)]
 
   # Name to be used on all the resources as identifier
   # type: string
@@ -40,11 +37,11 @@ inputs = {
 
   # A list of private subnets inside the VPC
   # type: list(string)
-  private_subnets = [for k,v in dependency.aws-data.outputs.available_aws_availability_zones_names: cidrsubnet("10.0.0.0/16", 8, k+10)]
+  private_subnets = slice([for k,v in dependency.aws-data.outputs.available_aws_availability_zones_names: cidrsubnet("10.0.0.0/16", 8, k+10)],0,1)
 
   # A list of public subnets inside the VPC
   # type: list(string)
-  public_subnets = [for k,v in dependency.aws-data.outputs.available_aws_availability_zones_names: cidrsubnet("10.0.0.0/16", 8, k)]
+  public_subnets = slice([for k,v in dependency.aws-data.outputs.available_aws_availability_zones_names: cidrsubnet("10.0.0.0/16", 8, k)],0,1)
   
   # Enable NAT Gateway for the private subnet
   enable_nat_gateway = true
