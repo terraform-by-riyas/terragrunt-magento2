@@ -24,6 +24,7 @@ inputs = {
     instance_type          = "r7g.medium"
     disable_api_termination = false
     create_spot_instance = true
+    spot_wait_for_fulfillment = true
     key_name               = "temp-key"
     monitoring             = false
     vpc_security_group_ids = ["sg-069d560c89e9d9119"]
