@@ -11,7 +11,7 @@ dependencies {
   paths = ["../ec2-db-server-mariadb"]
 }
 
-dependency "web-server" {
+dependency "ec2-db-server-mariadb" {
   config_path = "../ec2-db-server-mariadb"
 }
 

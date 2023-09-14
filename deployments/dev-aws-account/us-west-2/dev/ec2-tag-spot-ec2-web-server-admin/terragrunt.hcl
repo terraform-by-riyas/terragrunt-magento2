@@ -11,7 +11,7 @@ dependencies {
   paths = ["../ec2-web-server-admin"]
 }
 
-dependency "web-server" {
+dependency "ec2-web-server-admin" {
   config_path = "../ec2-web-server-admin"
 }
 
