@@ -18,7 +18,7 @@ dependency "ec2-web-server" {
 }
 
 inputs = {
-  resource_id = dependency.web-server.outputs.spot_instance_id
+  resource_id = dependency.ec2-web-server.outputs.spot_instance_id
   key = "Name"
   value = "${local.common_vars.environment}-Web Server"
 }
