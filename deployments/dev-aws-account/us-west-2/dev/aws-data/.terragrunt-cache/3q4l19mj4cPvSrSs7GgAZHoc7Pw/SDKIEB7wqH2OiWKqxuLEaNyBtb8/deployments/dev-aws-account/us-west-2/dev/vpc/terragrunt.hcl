@@ -1,6 +1,9 @@
 include {
   path = find_in_parent_folders()
 }
+locals {
+  common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
+}
 
 terraform {
   source  = "github.com/terraform-aws-modules/terraform-aws-vpc.git?ref=v5.1.2"
@@ -33,7 +36,7 @@ inputs = {
 
   # Name to be used on all the resources as identifier
   # type: string
-  name = "${local.project_name.name}-${local.environment.environment}"
+  name = "${local.common_vars.project-name}-${local.common_vars.environment}"
 
   # A list of private subnets inside the VPC
   # type: list(string)
@@ -45,6 +48,6 @@ inputs = {
   
     tags = {
       Terraform   = "true"
-      Environment = "dev"
+      Environment = "${local.common_vars.environment}"
     }
 }

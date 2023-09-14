@@ -3,15 +3,16 @@ TERRAGRUNT CONFIGURATION
 ******************************/
 
 locals {
+  common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
   # Load account, region and environment variables 
   account_vars      = read_terragrunt_config(find_in_parent_folders("account.hcl"))
   region_vars       = read_terragrunt_config(find_in_parent_folders("region.hcl"))
   environment_vars  = read_terragrunt_config(find_in_parent_folders("env.hcl"))
 
   # Extract the variables we need with the backend configuration
-  aws_region      = local.region_vars.locals.aws_region
+  aws_region      = local.common_vars.aws_region
   aws_profile     = local.account_vars.locals.aws_profile_name
-  environment     = local.environment_vars.locals.environment
+  environment     = local.common_vars.environment
   state_bucket    = local.environment_vars.locals.state_bucket
   dynamodb_table  = local.environment_vars.locals.dynamodb_table
   

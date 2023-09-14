@@ -1,1 +1,0 @@
-# terragrunt-magento2

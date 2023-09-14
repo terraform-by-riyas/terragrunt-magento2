@@ -1,14 +1,13 @@
 data "aws_region" "selected" {}
-
 data "aws_availability_zones" "available" {}
 
-data "aws_ami" "ubuntu_1804" {
+data "aws_ami" "ubuntu_arm_graviton_22_04lts" {
   most_recent = true
   owners      = ["099720109477"]
 
   filter {
     name   = "name"
-    values = ["ubuntu-minimal/images/*/ubuntu-bionic-18.04-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-arm64-server-*"]
   }
 
   filter {
@@ -23,7 +22,7 @@ data "aws_ami" "ubuntu_1804" {
 
   filter {
     name   = "architecture"
-    values = ["x86_64"]
+    values = ["arm64"]
   }
 }
 
