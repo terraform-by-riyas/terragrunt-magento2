@@ -46,6 +46,10 @@ inputs = {
   # type: list(string)
   public_subnets = [for k,v in dependency.aws-data.outputs.available_aws_availability_zones_names: cidrsubnet("10.0.0.0/16", 8, k)]
   
+  # Enable NAT Gateway for the private subnet
+  enable_nat_gateway = true
+
+
     tags = {
       Terraform   = "true"
       Environment = "${local.common_vars.environment}"

@@ -11,11 +11,14 @@ terraform {
 }
 
 dependencies {
-  paths = ["../aws-data"]
+  paths = ["../aws-data","../vpc"]
 }
 
 dependency "aws-data" {
   config_path = "../aws-data"
+}
+dependency "vpc" {
+  config_path = "../vpc"
 }
 
 inputs = {
@@ -28,6 +31,7 @@ inputs = {
     key_name               = "temp-key"
     monitoring             = false
     vpc_security_group_ids = ["sg-069d560c89e9d9119"]
+    subnet_id = dependency.vpc.private_subnets[0]
     tags = {
       Terraform   = "true"
       Environment = "${local.common_vars.environment}"
