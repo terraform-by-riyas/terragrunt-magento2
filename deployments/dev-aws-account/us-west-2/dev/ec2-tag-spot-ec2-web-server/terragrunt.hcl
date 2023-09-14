@@ -1,7 +1,9 @@
 include {
   path = find_in_parent_folders()
 }
-
+locals {
+  common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
+}
 terraform {
   source  = "${dirname(find_in_parent_folders())}/..//infrastructure/modules/ec2-spot-tag"
   
@@ -18,5 +20,5 @@ dependency "web-server" {
 inputs = {
   resource_id = dependency.web-server.outputs.spot_instance_id
   key = "Name"
-  value = "Web Server"
+  value = "${local.common_vars.environment}-Web Server"
 }
