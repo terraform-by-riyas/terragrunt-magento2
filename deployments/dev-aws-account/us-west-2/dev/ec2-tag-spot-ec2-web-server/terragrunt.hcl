@@ -13,7 +13,7 @@ dependencies {
   paths = ["../ec2-web-server"]
 }
 
-dependency "web-server" {
+dependency "ec2-web-server" {
   config_path = "../ec2-web-server"
 }
 
