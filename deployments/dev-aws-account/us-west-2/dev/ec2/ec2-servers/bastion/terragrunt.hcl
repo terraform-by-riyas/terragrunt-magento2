@@ -11,7 +11,7 @@ terraform {
 }
 
 dependencies {
-  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-bastion", "../../ssh-key"]
+  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-bastion", "../../ssh-key","../../ec2-instance-connect"]
 }
 
 dependency "aws-data" {
@@ -27,6 +27,9 @@ dependency "sg-bastion" {
 dependency "ssh-key" {
   config_path = "../../ssh-key"
 }
+dependency "ec2-instance-connect" {
+  config_path = "../../ec2-instance-connect"
+}
 
 
 inputs = {
@@ -40,6 +43,7 @@ inputs = {
     monitoring             = false
     vpc_security_group_ids = [dependency.sg-bastion.outputs.security_group_id]
     subnet_id = dependency.vpc.outputs.public_subnets[0]
+	iam_instance_profile = dependency.ec2-instance-connect.outputs.iam_profile_name
     tags = {
       Terraform   = "true"
       Environment = "${local.common_vars.environment}"

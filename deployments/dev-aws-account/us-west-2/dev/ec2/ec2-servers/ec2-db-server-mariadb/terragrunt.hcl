@@ -11,7 +11,7 @@ terraform {
 }
 
 dependencies {
-  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-mariadb", "../../ssh-key"]
+  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-mariadb", "../../ssh-key","../../ec2-instance-connect"]
 }
 
 dependency "aws-data" {
@@ -27,6 +27,9 @@ dependency "sg-mariadb" {
 dependency "ssh-key" {
   config_path = "../../ssh-key"
 }
+dependency "ec2-instance-connect" {
+  config_path = "../../ec2-instance-connect"
+}
 
 inputs = {
     name = "mariadb-server"
@@ -38,6 +41,7 @@ inputs = {
     key_name               = dependency.ssh-key.outputs.key-name
     monitoring             = false
     vpc_security_group_ids = [dependency.sg-mariadb.outputs.security_group_id]
+	iam_instance_profile = dependency.ec2-instance-connect.outputs.iam_profile_name
     subnet_id = dependency.vpc.outputs.private_subnets[0]
     tags = {
       Terraform   = "true"
