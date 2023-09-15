@@ -10,7 +10,7 @@ terraform {
 }
 
 inputs = {
-  ssm-role-name = ${local.common_vars.environment}-ssm-role
+  ssm-role-name = "${local.common_vars.environment}-ssm-role"
   key = "Name"
   value = "${local.common_vars.environment}-Instance Connect Role"
   key = "Terraform"
