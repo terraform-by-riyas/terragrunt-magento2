@@ -11,9 +11,8 @@ terraform {
 }
 
 dependencies {
-  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-mariadb", "../../ssh-key"]
+  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-bastion", "../../ssh-key"]
 }
-
 dependency "aws-data" {
   config_path = "../../../aws-data"
 }
@@ -21,12 +20,13 @@ dependency "vpc" {
   config_path = "../../../vpc"
 }
 
-dependency "sg-mariadb" {
-  config_path = "../../../sgs/sg-mariadb"
+dependency "sg-bastion" {
+  config_path = "../../../sgs/sg-bastion"
 }
 dependency "ssh-key" {
   config_path = "../../ssh-key"
 }
+
 inputs = {
     name = "single-instance"
     ami = dependency.aws-data.outputs.ubuntu_arm_graviton_22_04lts
