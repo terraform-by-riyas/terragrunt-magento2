@@ -11,20 +11,22 @@ terraform {
 }
 
 dependencies {
-  paths = ["../../aws-data", "../../vpc", "../../sgs/sg-mariadb"]
+  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-mariadb", "../../ssh-key"]
 }
 
 dependency "aws-data" {
-  config_path = "../../aws-data"
+  config_path = "../../../aws-data"
 }
 dependency "vpc" {
-  config_path = "../../vpc"
+  config_path = "../../../vpc"
 }
 
 dependency "sg" {
-  config_path = "../../sgs/sg-mariadb"
+  config_path = "../../../sgs/sg-mariadb"
 }
-
+dependency "ssh-key" {
+  config_path = "../../ssh-key"
+}
 
 inputs = {
     name = "mariadb-server"
@@ -33,7 +35,7 @@ inputs = {
     disable_api_termination = false
     create_spot_instance = true
     spot_wait_for_fulfillment = true
-    key_name               = "temp-key"
+    key_name               = dependency.ssh-key.outputs.key-name
     monitoring             = false
     vpc_security_group_ids = [dependency.sg.outputs.security_group_id]
     subnet_id = dependency.vpc.outputs.private_subnets[0]
