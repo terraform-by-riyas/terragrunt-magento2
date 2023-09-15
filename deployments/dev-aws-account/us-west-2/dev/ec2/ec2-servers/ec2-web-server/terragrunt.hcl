@@ -11,7 +11,7 @@ terraform {
 }
 
 dependencies {
-  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-mariadb", "../../ssh-key"]
+  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-mariadb", "../../../ssh-key"]
 }
 
 dependency "aws-data" {
