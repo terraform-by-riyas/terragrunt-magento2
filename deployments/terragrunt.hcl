@@ -10,7 +10,7 @@ locals {
   environment_vars  = read_terragrunt_config(find_in_parent_folders("env.hcl"))
 
   # Extract the variables we need with the backend configuration
-  aws_region      = local.common_vars.aws_region
+  aws_region      = local.region_vars.locals.aws_region
   environment     = local.common_vars.environment
   
 }
@@ -26,7 +26,7 @@ remote_state {
   config    = {
     bucket         = "${local.common_vars.state_bucket}-${get_aws_account_id()}"
     key            = "terragrunt/magento2/${path_relative_to_include()}/terraform.tfstate"
-    region         = "${local.common_vars.aws_region}"
+    region         = "${local.region_vars.locals.aws_region}"
     encrypt        = true
     dynamodb_table = "${local.common_vars.dynamodb_table}"
     profile        = "${local.common_vars.aws_profile_name}"
@@ -65,7 +65,7 @@ generate "provider" {
     contents = <<EOF
 provider "aws" {
   profile = "${local.common_vars.aws_profile_name}"
-  region = "${local.common_vars.aws_region}"
+  region = "${local.region_vars.locals.aws_region}"
 }
 EOF
 }
