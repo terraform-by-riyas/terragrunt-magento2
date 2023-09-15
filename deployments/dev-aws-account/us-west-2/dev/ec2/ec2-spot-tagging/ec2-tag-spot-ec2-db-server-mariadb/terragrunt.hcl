@@ -10,11 +10,11 @@ terraform {
 }
 
 dependencies {
-  paths = ["../ec2-db-server-mariadb"]
+  paths = ["../../ec2-servers/ec2-db-server-mariadb"]
 }
 
 dependency "ec2-db-server-mariadb" {
-  config_path = "../ec2-db-server-mariadb"
+  config_path = "../../ec2-servers/ec2-db-server-mariadb"
 }
 
 inputs = {

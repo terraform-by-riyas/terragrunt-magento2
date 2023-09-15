@@ -11,13 +11,22 @@ terraform {
 }
 
 dependencies {
-  paths = ["../aws-data"]
+  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-mariadb", "../../ssh-key"]
 }
 
 dependency "aws-data" {
-  config_path = "../aws-data"
+  config_path = "../../../aws-data"
+}
+dependency "vpc" {
+  config_path = "../../../vpc"
 }
 
+dependency "sg-mariadb" {
+  config_path = "../../../sgs/sg-mariadb"
+}
+dependency "ssh-key" {
+  config_path = "../../ssh-key"
+}
 inputs = {
     name = "single-instance"
     ami = dependency.aws-data.outputs.ubuntu_arm_graviton_22_04lts
@@ -25,9 +34,9 @@ inputs = {
     disable_api_termination = false
     create_spot_instance = true
     spot_wait_for_fulfillment = true
-    key_name               = "temp-key"
+    key_name               = dependency.ssh-key.outputs.key-name
     monitoring             = false
-    vpc_security_group_ids = ["sg-069d560c89e9d9119"]
+    vpc_security_group_ids = [dependency.sg-mariadb.outputs.security_group_id]
     tags = {
       Terraform   = "true"
       Environment = "${local.common_vars.environment}"

@@ -21,7 +21,7 @@ dependency "vpc" {
   config_path = "../../../vpc"
 }
 
-dependency "sg" {
+dependency "sg-mariadb" {
   config_path = "../../../sgs/sg-mariadb"
 }
 dependency "ssh-key" {
@@ -37,7 +37,7 @@ inputs = {
     spot_wait_for_fulfillment = true
     key_name               = dependency.ssh-key.outputs.key-name
     monitoring             = false
-    vpc_security_group_ids = [dependency.sg.outputs.security_group_id]
+    vpc_security_group_ids = [dependency.sg-mariadb.outputs.security_group_id]
     subnet_id = dependency.vpc.outputs.private_subnets[0]
     tags = {
       Terraform   = "true"

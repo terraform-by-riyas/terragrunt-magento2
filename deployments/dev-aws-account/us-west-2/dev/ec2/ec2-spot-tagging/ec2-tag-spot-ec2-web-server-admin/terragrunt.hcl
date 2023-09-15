@@ -11,11 +11,11 @@ terraform {
 }
 
 dependencies {
-  paths = ["../ec2-web-server-admin"]
+  paths = ["../../ec2-servers/ec2-web-server-admin"]
 }
 
 dependency "ec2-web-server-admin" {
-  config_path = "../ec2-web-server-admin"
+  config_path = "../../ec2-servers/ec2-web-server-admin"
 }
 
 inputs = {

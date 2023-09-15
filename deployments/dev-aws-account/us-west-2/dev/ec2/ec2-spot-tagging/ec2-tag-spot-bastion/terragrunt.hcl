@@ -10,11 +10,11 @@ terraform {
 }
 
 dependencies {
-  paths = ["../bastion"]
+  paths = ["../../ec2-servers/bastion"]
 }
 
 dependency "bastion" {
-  config_path = "../bastion"
+  config_path = "../../ec2-servers/bastion"
 }
 
 inputs = {
