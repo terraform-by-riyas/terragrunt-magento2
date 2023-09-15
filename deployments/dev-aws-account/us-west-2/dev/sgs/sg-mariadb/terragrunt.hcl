@@ -26,7 +26,7 @@ inputs = {
 	description = "Security group for Mariadb to access the port 3306 to be accessiblle within the VPC"
 	vpc_id      = dependency.vpc.outputs.vpc_id 
 	ingress_cidr_blocks      = [dependency.vpc.outputs.vpc_cidr_block]
-	ingress_rules            = ["mysql-tcp"]
+	ingress_rules            = ["ssh-tcp","mysql-tcp"]
 	egress_rules = ["all-all"]
 
     tags = {
