@@ -34,7 +34,7 @@ remote_state {
     region         = "${local.aws_region}"
     encrypt        = true
     dynamodb_table = "${local.dynamodb_table}"
-    profile        = "alignminds"
+    profile        = "${local.aws_profile"
   }
 }
 

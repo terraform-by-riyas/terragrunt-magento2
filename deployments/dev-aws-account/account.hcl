@@ -2,7 +2,7 @@
 locals {
   account_name   = "dev-am-aws-account"
   aws_account_id = "620651758673"
-  aws_profile_name = "alignminds"
+  aws_profile_name = "default"
 
 }
 
