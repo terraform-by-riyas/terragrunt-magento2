@@ -23,7 +23,6 @@ dependency "vpc" {
 inputs = {
 
 	name        = "Bastion-Access"
-	description = "Security group for bastion to access the port 22 to be accessiblle from public"
 	vpc_id      = dependency.vpc.outputs.vpc_id 
 	ingress_cidr_blocks      = ["0.0.0.0/0"]
 	ingress_rules            = ["ssh-tcp", "http-80-tcp"]

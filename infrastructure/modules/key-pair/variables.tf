@@ -1,1 +1,1 @@
-variable "filename" {}
+variable "public_key" {}
