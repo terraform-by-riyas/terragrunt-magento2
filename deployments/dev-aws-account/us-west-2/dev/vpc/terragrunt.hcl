@@ -42,7 +42,7 @@ azs = slice([for v in dependency.aws-data.outputs.available_aws_availability_zon
   # A list of public subnets inside the VPC
   # type: list(string)
   public_subnets = slice([for k,v in dependency.aws-data.outputs.available_aws_availability_zones_names: cidrsubnet("10.0.0.0/16", 8, k)],0,1)
-  
+  map_public_ip_on_launch = true
   # Enable NAT Gateway for the private subnet
   enable_nat_gateway = true
 
