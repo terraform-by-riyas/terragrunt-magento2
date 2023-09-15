@@ -37,6 +37,7 @@ inputs = {
     key_name               = dependency.ssh-key.outputs.key-name
     monitoring             = false
     vpc_security_group_ids = [dependency.sg-bastion.outputs.security_group_id]
+	subnet_id = dependency.vpc.outputs.public_subnets[0]
     tags = {
       Terraform   = "true"
       Environment = "${local.common_vars.environment}"
