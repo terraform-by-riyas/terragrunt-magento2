@@ -11,7 +11,7 @@ terraform {
 }
 
 dependencies {
-  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-mariadb", "../../../ssh-key"]
+  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-mariadb", "../../ssh-key"]
 }
 
 dependency "aws-data" {
@@ -36,7 +36,7 @@ inputs = {
     spot_wait_for_fulfillment = true
     key_name               = dependency.ssh-key.outputs.key-name
     monitoring             = false
-    vpc_security_group_ids = [dependency.sg-mariadb.outputs.security_group_id]
+    vpc_security_group_ids = [dependency.sg-bastion.outputs.security_group_id]
     tags = {
       Terraform   = "true"
       Environment = "${local.common_vars.environment}"
