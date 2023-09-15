@@ -2,3 +2,6 @@
 project-name: magento2
 environment: dev
 aws_region: us-west-2
+aws_profile_name: default
+state_bucket: tf-tg-state-lock
+dynamodb_table: state-lock

@@ -11,13 +11,8 @@ locals {
 
   # Extract the variables we need with the backend configuration
   aws_region      = local.common_vars.aws_region
-  aws_profile     = local.account_vars.locals.aws_profile_name
   environment     = local.common_vars.environment
-  state_bucket    = local.environment_vars.locals.state_bucket
-  dynamodb_table  = local.environment_vars.locals.dynamodb_table
   
-  # Project Related
-  project_name    = local.environment_vars.locals.name
 }
 
 # Configure the Terragrunt remote state to utilize a S3 bucket and state lock information in a DynamoDB table. 
@@ -29,12 +24,12 @@ remote_state {
     if_exists = "overwrite"
   }
   config    = {
-    bucket         = "${local.state_bucket}"
+    bucket         = "${local.common_vars.state_bucket}-${get_aws_account_id()}"
     key            = "terragrunt/magento2/${path_relative_to_include()}/terraform.tfstate"
-    region         = "${local.aws_region}"
+    region         = "${local.common_vars.aws_region}"
     encrypt        = true
-    dynamodb_table = "${local.dynamodb_table}"
-    profile        = "${local.aws_profile"
+    dynamodb_table = "${local.common_vars.dynamodb_table}"
+    profile        = "${local.common_vars.aws_profile_name}"
   }
 }
 
@@ -59,7 +54,7 @@ terraform {
     ]
 
     env_vars = {
-      AWS_PROFILE = "${local.aws_profile}"
+      AWS_PROFILE = "${local.common_vars.aws_profile_name}"
     }
   }
 }
@@ -69,8 +64,8 @@ generate "provider" {
     if_exists = "overwrite"
     contents = <<EOF
 provider "aws" {
-  profile = "${local.aws_profile}"
-  region = "${local.aws_region}"
+  profile = "${local.common_vars.aws_profile_name}"
+  region = "${local.common_vars.aws_region}"
 }
 EOF
 }
