@@ -11,21 +11,21 @@ terraform {
 }
 
 dependencies {
-  paths = ["../../aws-data", "../../vpc", "../../sgs/sg-bastion", "../ssh-key"]
+  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-bastion", "../../ssh-key"]
 }
 
 dependency "aws-data" {
-  config_path = "../../aws-data"
+  config_path = "../../../aws-data"
 }
 dependency "vpc" {
-  config_path = "../../vpc"
+  config_path = "../../../vpc"
 }
 
 dependency "sg-bastion" {
-  config_path = "../../sgs/sg-bastion"
+  config_path = "../../../sgs/sg-bastion"
 }
 dependency "ssh-key" {
-  config_path = "../ssh-key"
+  config_path = "../../ssh-key"
 }
 
 
