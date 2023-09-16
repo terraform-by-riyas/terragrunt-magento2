@@ -11,7 +11,7 @@ terraform {
 }
 
 dependencies {
-  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-web", "../../ssh-key","../../ec2-instance-connect"]
+  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-web", "../../../sgs/sg-opensearch", "../../ssh-key","../../ec2-instance-connect"]
 }
 dependency "aws-data" {
   config_path = "../../../aws-data"
@@ -23,6 +23,11 @@ dependency "vpc" {
 dependency "sg-web" {
   config_path = "../../../sgs/sg-web"
 }
+
+dependency "sg-opensearch" {
+  config_path = "../../../sgs/sg-opensearch"
+}
+
 dependency "ssh-key" {
   config_path = "../../ssh-key"
 }
@@ -33,13 +38,13 @@ dependency "ec2-instance-connect" {
 inputs = {
     name = "single-instance"
     ami = dependency.aws-data.outputs.ubuntu_arm_graviton_22_04lts
-    instance_type          = "r7g.medium"
+    instance_type          = "c7g.large"
     disable_api_termination = false
     create_spot_instance = true
     spot_wait_for_fulfillment = true
     key_name               = dependency.ssh-key.outputs.key-name
     monitoring             = false
-    vpc_security_group_ids = [dependency.sg-web.outputs.security_group_id] // http and https
+    vpc_security_group_ids = [dependency.sg-web.outputs.security_group_id, dependency.sg-opensearch.outputs.security_group_id] // http and https
     subnet_id = dependency.vpc.outputs.public_subnets[0] // Public Subnet
     iam_instance_profile = dependency.ec2-instance-connect.outputs.iam_profile_name // Instance Connect - not required ssh/bastion
     tags = {
