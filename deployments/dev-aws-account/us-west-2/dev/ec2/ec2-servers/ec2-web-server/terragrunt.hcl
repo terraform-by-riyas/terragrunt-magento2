@@ -11,7 +11,7 @@ terraform {
 }
 
 dependencies {
-  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-bastion", "../../ssh-key","../../ec2-instance-connect"]
+  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-web", "../../ssh-key","../../ec2-instance-connect"]
 }
 dependency "aws-data" {
   config_path = "../../../aws-data"
@@ -20,8 +20,8 @@ dependency "vpc" {
   config_path = "../../../vpc"
 }
 
-dependency "sg-bastion" {
-  config_path = "../../../sgs/sg-bastion"
+dependency "sg-web" {
+  config_path = "../../../sgs/sg-web"
 }
 dependency "ssh-key" {
   config_path = "../../ssh-key"
@@ -39,9 +39,9 @@ inputs = {
     spot_wait_for_fulfillment = true
     key_name               = dependency.ssh-key.outputs.key-name
     monitoring             = false
-    vpc_security_group_ids = [dependency.sg-bastion.outputs.security_group_id]
-    subnet_id = dependency.vpc.outputs.public_subnets[0]
-    iam_instance_profile = dependency.ec2-instance-connect.outputs.iam_profile_name
+    vpc_security_group_ids = [dependency.sg-web.outputs.security_group_id] // http and https
+    subnet_id = dependency.vpc.outputs.public_subnets[0] // Public Subnet
+    iam_instance_profile = dependency.ec2-instance-connect.outputs.iam_profile_name // Instance Connect - not required ssh/bastion
     tags = {
       Terraform   = "true"
       Environment = "${local.common_vars.environment}"
