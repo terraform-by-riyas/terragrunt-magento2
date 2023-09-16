@@ -11,7 +11,7 @@ terraform {
 }
 
 dependencies {
-  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-web", "../../../sgs/sg-opensearch", "../../ssh-key","../../ec2-instance-connect"]
+  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-web", "../../../sgs/sg-redis", "../../../sgs/sg-opensearch", "../../ssh-key","../../ec2-instance-connect"]
 }
 dependency "aws-data" {
   config_path = "../../../aws-data"
@@ -26,6 +26,9 @@ dependency "sg-web" {
 
 dependency "sg-opensearch" {
   config_path = "../../../sgs/sg-opensearch"
+}
+dependency "sg-redis" {
+  config_path = "../../../sgs/sg-redis"
 }
 
 dependency "ssh-key" {
@@ -44,7 +47,7 @@ inputs = {
     spot_wait_for_fulfillment = true
     key_name               = dependency.ssh-key.outputs.key-name
     monitoring             = false
-    vpc_security_group_ids = [dependency.sg-web.outputs.security_group_id, dependency.sg-opensearch.outputs.security_group_id] // http and https
+    vpc_security_group_ids = [dependency.sg-redis.outputs.security_group_id, dependency.sg-web.outputs.security_group_id, dependency.sg-opensearch.outputs.security_group_id] // http and https
     subnet_id = dependency.vpc.outputs.public_subnets[0] // Public Subnet
     iam_instance_profile = dependency.ec2-instance-connect.outputs.iam_profile_name // Instance Connect - not required ssh/bastion
     tags = {
