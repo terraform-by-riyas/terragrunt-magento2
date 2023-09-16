@@ -36,8 +36,7 @@ inputs = {
       self        = true
     },
   ]
-
-  number_of_computed_ingress_with_self = 6
+  number_of_computed_ingress_with_self = 1
 
 egress_rules = ["all-all"]
     tags = {
