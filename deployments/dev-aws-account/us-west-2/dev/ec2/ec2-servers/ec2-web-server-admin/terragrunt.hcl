@@ -32,6 +32,7 @@ dependency "ec2-instance-connect" {
 }
 
 inputs = {
+    create = false
     name = "admin-webserver"
     ami = dependency.aws-data.outputs.ubuntu_arm_graviton_22_04lts
     instance_type          = "r7g.medium"

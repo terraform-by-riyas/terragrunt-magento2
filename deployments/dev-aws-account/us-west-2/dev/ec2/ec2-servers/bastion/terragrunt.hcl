@@ -33,6 +33,7 @@ dependency "ec2-instance-connect" {
 
 
 inputs = {
+   create = false
     name = "bastillion-server"
     ami = dependency.aws-data.outputs.amazon_linux2_aws_ami_id
     instance_type          = "t3.small"
