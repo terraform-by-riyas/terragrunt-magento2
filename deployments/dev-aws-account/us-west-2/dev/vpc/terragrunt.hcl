@@ -45,8 +45,8 @@ azs = slice((dependency.aws-data.outputs.available_aws_availability_zones_names)
   public_subnets = [for k,v in slice((dependency.aws-data.outputs.available_aws_availability_zones_names),0,2): cidrsubnet("10.0.0.0/16", 8, k)]
   map_public_ip_on_launch = true
   # Enable NAT Gateway for the private subnet
-  enable_nat_gateway = true
-  single_nat_gateway = true // for high availability, use multiple NAT gateways for each pvt subnets
+  enable_nat_gateway = false 
+  single_nat_gateway = false // for high availability, use multiple NAT gateways for each pvt subnets
 
 
 
