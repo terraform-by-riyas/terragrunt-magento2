@@ -31,8 +31,7 @@ sudo apt-get -qqy install git curl wget zip
 
 if [ "${parameter["INSTANCE_NAME"]}" != "varnish" ]; then
 
-sudo apt -y install nginx
-sudo systemctl enable nginx
+wget -c http://mirrors.linuxeye.com/oneinstack-full.tar.gz && tar xzf oneinstack-full.tar.gz && ./oneinstack/install.sh --nginx_option 1 --php_option 12 --phpcache_option 1 --php_extensions imagick,fileinfo,redis,memcached
 
 ## create user
 # sudo useradd -d /home/${parameter["BRAND"]} -s /sbin/nologin ${parameter["BRAND"]}
