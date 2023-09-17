@@ -17,9 +17,9 @@ dependency "vpc" {
 inputs = {
   aws_subnet_id = dependency.vpc.outputs.private_subnets[0]
   private_ips = ["10.0.10.10"]
+ name = "eni-DB-${local.common_vars.project-name}-${local.common_vars.environment}"
  # security_groups = 
  tags = {
-      Name = "DB"
       Terraform   = "true"
       Environment = "${local.common_vars.environment}"
       Project =  "${local.common_vars.project-name}"
