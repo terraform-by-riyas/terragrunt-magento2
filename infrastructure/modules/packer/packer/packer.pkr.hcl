@@ -6,7 +6,7 @@
 packer {
   required_plugins {
     amazon = {
-      version = ">= 0.0.2"
+      version = ">= 1.9.3"
       source  = "github.com/hashicorp/amazon"
     }
   }
@@ -14,35 +14,35 @@ packer {
 # # ---------------------------------------------------------------------------------------------------------------------#
 # Packer variables from terraform
 # # ---------------------------------------------------------------------------------------------------------------------#
-variable "IAM_INSTANCE_PROFILE" {}
+// variable "IAM_INSTANCE_PROFILE" {}
 variable "INSTANCE_NAME" {}
-variable "PARAMETERSTORE_NAME" {}
+// variable "PARAMETERSTORE_NAME" {}
 # # ---------------------------------------------------------------------------------------------------------------------#
 # Get environment variables from SSM ParameterStore
 # # ---------------------------------------------------------------------------------------------------------------------#
-data "amazon-parameterstore" "env" {
-  name = "${var.PARAMETERSTORE_NAME}"
-}
+// data "amazon-parameterstore" "env" {
+//   name = "${var.PARAMETERSTORE_NAME}"
+// }
 locals {
   timestamp = regex_replace(timestamp(), "[- TZ:]", "")
-  var = "${jsondecode(data.amazon-parameterstore.env.value)}"
+//   var = "${jsondecode(data.amazon-parameterstore.env.value)}"
 }
 # # ---------------------------------------------------------------------------------------------------------------------#
 # Create AMI Builder (EBS backed)
 # # ---------------------------------------------------------------------------------------------------------------------#
 source "amazon-ebs" "latest-ami" {
-  ami_name        = "${local.var["PROJECT"]}-${var.INSTANCE_NAME}-${local.timestamp}"
-  ami_description = "AMI for ${local.var["PROJECT"]} ${var.INSTANCE_NAME} - Packer Build ${local.timestamp}"
-  region          = "${local.var["AWS_DEFAULT_REGION"]}"
-  source_ami      = "${local.var["SOURCE_AMI"]}"
-  iam_instance_profile = "${var.IAM_INSTANCE_PROFILE}"
-  security_group_id = "${local.var["SECURITY_GROUP"]}"
-  subnet_id       = "${local.var["SUBNET_ID"]}"
-  ssh_username    = "admin"
+  ami_name        = "M2-web-${local.timestamp}"
+  ami_description = "AMI forMagento - Packer Build ${local.timestamp}"
+  region          = "us-west-2"
+  source_ami      = "ami-0c79a55dda52434da"
+//   iam_instance_profile = "${var.IAM_INSTANCE_PROFILE}"
+  security_group_id = "sg-0282411ebada99753"
+  subnet_id       = "subnet-9586e3be"
+  ssh_username    = "ubuntu"
   instance_type   = "c6g.large"
   launch_block_device_mappings {
     device_name = "/dev/xvda"
-    volume_size = "${local.var["VOLUME_SIZE"]}"
+    volume_size = "10"
     volume_type = "gp3"
     delete_on_termination = true
   }
@@ -52,7 +52,7 @@ source "amazon-ebs" "latest-ami" {
     http_put_response_hop_limit = 1
   }
   snapshot_tags = {
-    Name = "${local.var["PROJECT"]}-${var.INSTANCE_NAME}-${local.timestamp}"
+    Name = "magento-dev-BAAR-${local.timestamp}"
   }
 }
 
