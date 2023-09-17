@@ -30,7 +30,7 @@ locals {
 # Create AMI Builder (EBS backed)
 # # ---------------------------------------------------------------------------------------------------------------------#
 source "amazon-ebs" "latest-ami" {
-  ami_name        = "M2-web-${var.INSTANCE_NAME}-${local.timestamp}"
+  ami_name        = "${var.INSTANCE_NAME}-${local.timestamp}"
   ami_description = "AMI forMagento - Packer Build ${local.timestamp}"
   region          = "us-west-2"
   source_ami      = "ami-0c79a55dda52434da"
