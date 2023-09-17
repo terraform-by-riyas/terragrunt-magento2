@@ -16,6 +16,6 @@ dependency "vpc" {
 
 inputs = {
   aws_subnet_id = dependency.vpc.outputs.private_subnets[0]
-  private_ips = ["10.0.0.10"]
+  private_ips = ["10.0.10.10"]
  # security_groups = 
 }
