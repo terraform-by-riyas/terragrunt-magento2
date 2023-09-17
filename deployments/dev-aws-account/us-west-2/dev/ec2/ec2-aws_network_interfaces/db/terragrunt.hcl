@@ -19,6 +19,10 @@ inputs = {
   private_ips = ["10.0.10.10"]
  # security_groups = 
  tags = {
-  Name: "eni-${local.common_vars.environment}-db"
- }
+      Name = "DB"
+      Terraform   = "true"
+      Environment = "${local.common_vars.environment}"
+      Project =  "${local.common_vars.project-name}"
+      Type = "Magento Web"
+    }
 }
