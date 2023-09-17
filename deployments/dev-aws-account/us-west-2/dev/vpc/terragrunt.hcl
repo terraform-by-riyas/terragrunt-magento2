@@ -21,6 +21,7 @@ dependency "aws-data" {
 # View all available inputs for this module:
 # https://registry.terraform.io/modules/terraform-aws-modules/vpc/aws/5.1.2?tab=inputs
 ###########################################################
+
 inputs = {
   # A list of availability zones names or ids in the region
   # type: list(string)
@@ -37,11 +38,11 @@ azs = slice((dependency.aws-data.outputs.available_aws_availability_zones_names)
 
   # A list of private subnets inside the VPC
   # type: list(string)
-  private_subnets = [for k,v in dependency.aws-data.outputs.available_aws_availability_zones_names: cidrsubnet("10.0.0.0/16", 8, k+10)]
+  private_subnets = [for k,v in slice(( dependency.aws-data.outputs.available_aws_availability_zones_names),0,2): cidrsubnet("10.0.0.0/16", 8, k+10)]
 
   # A list of public subnets inside the VPC
   # type: list(string)
-  public_subnets = [for k,v in dependency.aws-data.outputs.available_aws_availability_zones_names: cidrsubnet("10.0.0.0/16", 8, k)]
+  public_subnets = [for k,v in slice((dependency.aws-data.outputs.available_aws_availability_zones_names),0,2): cidrsubnet("10.0.0.0/16", 8, k)]
   map_public_ip_on_launch = true
   # Enable NAT Gateway for the private subnet
   enable_nat_gateway = true
