@@ -29,7 +29,7 @@ azs = slice((dependency.aws-data.outputs.available_aws_availability_zones_names)
 
   # The CIDR block for the VPC. Default value is a valid CIDR, but not acceptable by AWS and should be overridden
   # type: string
-  cidr = "10.0.0.0/16"
+  cidr = "10.0.0.0/16" //host range 10.0.0.1 - 10.0.255.254
 
 
   # Name to be used on all the resources as identifier
