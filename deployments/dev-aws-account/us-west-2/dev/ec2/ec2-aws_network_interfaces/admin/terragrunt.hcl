@@ -16,7 +16,7 @@ dependency "vpc" {
 
 inputs = {
   aws_subnet_id = dependency.vpc.outputs.public_subnets[0]
-  private_ips = ["10.0.0.2"]
+  private_ips = ["10.0.0.11"]
  name = "eni-Admin-${local.common_vars.project-name}-${local.common_vars.environment}"
  # security_groups = 
  tags = {

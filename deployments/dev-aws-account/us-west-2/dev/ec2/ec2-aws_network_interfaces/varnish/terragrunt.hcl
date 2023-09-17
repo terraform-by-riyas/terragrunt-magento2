@@ -16,7 +16,7 @@ dependency "vpc" {
 
 inputs = {
   aws_subnet_id = dependency.vpc.outputs.public_subnets[0]
-  private_ips = ["10.0.0.1"]
+  private_ips = ["10.0.0.10"]
  name = "eni-Varnish-${local.common_vars.project-name}-${local.common_vars.environment}"
  # security_groups = 
  tags = {
