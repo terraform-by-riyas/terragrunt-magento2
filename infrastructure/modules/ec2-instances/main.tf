@@ -1,6 +1,4 @@
-variable "multiple_instances" {
-   type = map(map())
-}
+variable "multiple_instances" {}
 variable "environment" {}
 
 
