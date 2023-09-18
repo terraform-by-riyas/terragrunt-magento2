@@ -7,34 +7,7 @@ locals {
 
 terraform {
   source  = "github.com/terraform-aws-modules/terraform-aws-ec2-instance.git?ref=v5.5.0"
-  
-}
-
-dependencies {
-  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-bastion", "../../ssh-key","../../ec2-instance-connect"]
-}
-
-dependency "aws-data" {
-  config_path = "../../../aws-data"
-}
-dependency "vpc" {
-  config_path = "../../../vpc"
-}
-
-dependency "sg-bastion" {
-  config_path = "../../../sgs/sg-bastion"
-}
-dependency "ssh-key" {
-  config_path = "../../ssh-key"
-}
-dependency "ec2-instance-connect" {
-  config_path = "../../ec2-instance-connect"
-}
-
-
-inputs = {
-
-  multiple_instances = {
+   multiple_instances = {
     one = {
       instance_type     = "t3.micro"
 
@@ -66,5 +39,32 @@ inputs = {
 
     }
   }
+}
+
+dependencies {
+  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-bastion", "../../ssh-key","../../ec2-instance-connect"]
+}
+
+dependency "aws-data" {
+  config_path = "../../../aws-data"
+}
+dependency "vpc" {
+  config_path = "../../../vpc"
+}
+
+dependency "sg-bastion" {
+  config_path = "../../../sgs/sg-bastion"
+}
+dependency "ssh-key" {
+  config_path = "../../ssh-key"
+}
+dependency "ec2-instance-connect" {
+  config_path = "../../ec2-instance-connect"
+}
+
+
+inputs = {
+
+ 
 
 }
