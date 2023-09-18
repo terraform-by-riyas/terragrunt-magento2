@@ -1,5 +1,6 @@
 variable "multiple_instances" {
    type = map(map(list()))
+}
 variable "environment" {}
 
 
