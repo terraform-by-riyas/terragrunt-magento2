@@ -31,7 +31,11 @@ dependency "ec2-instance-connect" {
   config_path = "../../ec2-instance-connect"
 }
 
-locals {
+
+
+
+
+inputs = {
   multiple_instances = {
     one = {
       instance_type     = "t3.micro"
@@ -64,10 +68,6 @@ locals {
 
     }
   }
-}
-
-inputs = {
-
 
 environment = "dev"
 }
