@@ -53,7 +53,7 @@ multiple_instances = {
         }
       ]
       tags = {
-      Name = one
+      Name = "one"
       Terraform   = "true"
       Environment = "${local.common_vars.environment}"
       Project =  "${local.common_vars.project-name}"
