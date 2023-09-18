@@ -11,7 +11,7 @@ terraform {
 }
 
 dependencies {
-  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-bastion", "../../ssh-key","../../ec2-instance-connect"]
+  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-mariadb", "../../ssh-key","../../ec2-instance-connect"]
 }
 
 dependency "aws-data" {
@@ -21,8 +21,8 @@ dependency "vpc" {
   config_path = "../../../vpc"
 }
 
-dependency "sg-bastion" {
-  config_path = "../../../sgs/sg-bastion"
+dependency "sg-db" {
+  config_path = "../../../sgs/sg-mariadb"
 }
 dependency "ssh-key" {
   config_path = "../../ssh-key"
@@ -42,7 +42,7 @@ multiple_instances = {
       ami                     = dependency.aws-data.outputs.ubuntu_arm_graviton_22_04lts
       key_name                = dependency.ssh-key.outputs.key-name
       monitoring              = false
-      vpc_security_group_ids  = [dependency.sg-mariadb.outputs.security_group_id]
+      vpc_security_group_ids  = [dependency.sg-db.outputs.security_group_id]
       iam_instance_profile    = dependency.ec2-instance-connect.outputs.iam_profile_name
       subnet_id               = dependency.vpc.outputs.private_subnets[0]
       availability_zone       = dependency.vpc.outputs.azs[0]
