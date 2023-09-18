@@ -1,16 +1,20 @@
-module "ec2-instance" {
+variable "multiple_instances" {
+  type = map(map(string))
+}
+variable "environment" {}
+
+
+module "ec2_multiple" {
   source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "5.5.0"
 
-  for_each = local.multiple_instances
+  for_each = var.multiple_instances
 
-  name = "${local.name}-multi-${each.key}"
+  name = "${each.key}"
 
-  instance_type          = each.value.instance_type
-  availability_zone      = each.value.availability_zone
-  subnet_id              = each.value.subnet_id
-  enable_volume_tags = true
-  root_block_device  = lookup(each.value, "root_block_device", [])
+tags ={
+Terraform = "True"
+Environment = var.environment
 
-  tags = local.tags
+}
+
 }
