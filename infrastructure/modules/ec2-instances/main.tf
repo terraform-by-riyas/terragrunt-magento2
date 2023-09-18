@@ -1,5 +1,5 @@
-variable "multiple_instances"{
-  type = map(map(set()))
+# variable "multiple_instances"{
+#   type = map(map())
 variable "environment" {}
 
 
