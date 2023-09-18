@@ -8,16 +8,22 @@ terraform {
   source  = "${dirname(find_in_parent_folders())}/..//infrastructure/modules/aws_network_interface"
 }
 dependencies {
-  paths = ["../../../aws-data", "../../../vpc", "../../../sgs/sg-mariadb", "../../ssh-key","../../ec2-instance-connect"]
+  paths = ["../../../../vpc", "../../../ec2-servers/ec2-db-server-mariadb"]
 }
 dependency "vpc" {
-  config_path = "../../../vpc"
+  config_path = "../../../../vpc"
+}
+dependency "db" {
+  config_path = "../../../ec2-servers/ec2-db-server-mariadb"
 }
 
+
 inputs = {
-  aws_subnet_id = dependency.vpc.outputs.public_subnets[0]
-  private_ips = ["10.0.0.10"]
- name = "eni-Varnish-${local.common_vars.project-name}-${local.common_vars.environment}"
+  aws_subnet_id = dependency.vpc.outputs.private_subnets[0]
+  private_ips = ["10.0.10.13"]
+  name = "eni-varnish-${local.common_vars.project-name}-${local.common_vars.environment}"
+  instance_id = dependency.db.outputs.spot_instance_id
+  description = "Dedicated ENI for the ${dependency.db.outputs.spot_instance_id}"
  # security_groups = 
  tags = {
       Terraform   = "true"
