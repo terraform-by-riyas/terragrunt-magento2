@@ -8,13 +8,13 @@ terraform {
   source  = "${dirname(find_in_parent_folders())}/..//infrastructure/modules/aws_network_interface"
 }
 dependencies {
-  paths = ["../../../vpc", "../../ec2-servers/ec2-db-server-mariadb"]
+  paths = ["../../../../vpc", "../../../ec2-servers/ec2-db-server-mariadb"]
 }
 dependency "vpc" {
   config_path = "../../../../vpc"
 }
 dependency "db" {
-  config_path = "../../ec2-servers/ec2-db-server-mariadb"
+  config_path = "../../../ec2-servers/ec2-db-server-mariadb"
 }
 
 
