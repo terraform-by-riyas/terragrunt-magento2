@@ -1,9 +1,9 @@
 include {
   path = find_in_parent_folders()
 }
-locals {
-  common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
-}
+// locals {
+//   common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
+// }
 
 terraform {
   source  = "${dirname(find_in_parent_folders())}/..//infrastructure/modules/ec2-instances" 
