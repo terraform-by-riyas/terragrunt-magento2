@@ -45,7 +45,17 @@ multiple_instances = {
       iam_instance_profile    = dependency.ec2-instance-connect.outputs.iam_profile_name
       subnet_id               = dependency.vpc.outputs.private_subnets[0]
       availability_zone       = dependency.vpc.outputs.azs[0]
-
+ root_block_device = [
+    {
+      encrypted   = true
+      volume_type = "gp3"
+      throughput  = 200
+      volume_size = 50
+      tags = {
+        Name = "my-root-block"
+      }
+    },
+  ]
         
     },
     varnish = {},
