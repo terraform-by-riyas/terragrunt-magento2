@@ -1,7 +1,8 @@
 variable "multiple_instances"{
-  type = map(map(object(
-    {root_block_device=map()}
-  )))
+type = object({
+  multiple_instances = map()
+  
+})
 }
 
 
