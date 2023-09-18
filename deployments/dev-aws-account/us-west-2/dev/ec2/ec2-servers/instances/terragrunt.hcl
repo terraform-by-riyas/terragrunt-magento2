@@ -38,7 +38,7 @@ dependency "ec2-instance-connect" {
 inputs = {
   multiple_instances = {
     one = {
-      instance_type     = "t3.micro"
+      
 
       root_block_device = [
         {

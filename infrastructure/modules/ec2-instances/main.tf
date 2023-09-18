@@ -1,6 +1,5 @@
 variable "multiple_instances" {
-    type = map(map(tuple([ map() ])))
-  
+  type = map(map(map()))
 }
 variable "environment" {}
 
