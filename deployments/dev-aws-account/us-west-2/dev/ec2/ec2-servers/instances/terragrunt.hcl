@@ -37,8 +37,10 @@ inputs = {
 multiple_instances = {
     one = {
       instance_type     = "t3.micro"
-      availability_zone = element(mdependency.vpc.outputs.azs, 0)
-      subnet_id         = element(dependency.vpc.outputs.public_subnets[0])
+      availability_zone = element(dependency.vpc.outputs.azs, 0)
+      subnet_id         = element(dependency.vpc.outputs.public_subnets,0)
+      create_spot_instance = false
+      spot_wait_for_fulfillment = true
       root_block_device = [
         {
           encrypted   = true
@@ -50,6 +52,13 @@ multiple_instances = {
           }
         }
       ]
+      tags = {
+      Name = one
+      Terraform   = "true"
+      Environment = "${local.common_vars.environment}"
+      Project =  "${local.common_vars.project-name}"
+      Type = "Magento Web Admin"
+    }
     }
   }
 }

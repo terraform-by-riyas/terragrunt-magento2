@@ -9,7 +9,7 @@ module "ec2-instance" {
   instance_type          = each.value.instance_type
   availability_zone      = each.value.availability_zone
   subnet_id              = each.value.subnet_id
-  enable_volume_tags = false
+  enable_volume_tags = true
   root_block_device  = lookup(each.value, "root_block_device", [])
 
   tags = local.tags
