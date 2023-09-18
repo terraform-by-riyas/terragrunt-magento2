@@ -23,6 +23,7 @@ inputs = {
   private_ips = ["10.0.10.10"]
   name = "eni-DB-${local.common_vars.project-name}-${local.common_vars.environment}"
   instance_id = dependency.db.outputs.id
+  description = "eni for the DB server"
  # security_groups = 
  tags = {
       Terraform   = "true"
