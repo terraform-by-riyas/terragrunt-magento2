@@ -3,38 +3,6 @@ include {
 }
 locals {
   common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
-   multiple_instances = {
-    one = {
-      instance_type     = "t3.micro"
-
-      root_block_device = [
-        {
-          encrypted   = true
-          volume_type = "gp3"
-          throughput  = 200
-          volume_size = 50
-          tags = {
-            Name = "my-root-block"
-          }
-        }
-      ]
-    }
-    two = {
-      instance_type     = "t3.small"
-
-      root_block_device = [
-        {
-          encrypted   = true
-          volume_type = "gp2"
-          volume_size = 50
-        }
-      ]
-    }
-    three = {
-      instance_type     = "t3.medium"
-
-    }
-  }
 }
 
 terraform {
@@ -66,6 +34,37 @@ dependency "ec2-instance-connect" {
 
 inputs = {
 
- 
+  multiple_instances = {
+    one = {
+      instance_type     = "t3.micro"
+
+      root_block_device = [
+        {
+          encrypted   = true
+          volume_type = "gp3"
+          throughput  = 200
+          volume_size = 50
+          tags = {
+            Name = "my-root-block"
+          }
+        }
+      ]
+    }
+    two = {
+      instance_type     = "t3.small"
+
+      root_block_device = [
+        {
+          encrypted   = true
+          volume_type = "gp2"
+          volume_size = 50
+        }
+      ]
+    }
+    three = {
+      instance_type     = "t3.medium"
+
+    }
+  }
 
 }
