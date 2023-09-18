@@ -1,5 +1,5 @@
 variable "multiple_instances"{
-    type = map()
+    type = map(map(map(string)))
 }
 variable "environment" {}
 
