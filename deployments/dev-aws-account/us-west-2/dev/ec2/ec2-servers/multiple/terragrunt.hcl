@@ -3,10 +3,6 @@ include {
 }
 locals {
   common_vars = yamldecode(file(find_in_parent_folders("common_vars.yaml")))
-}
-
-terraform {
-  source  = "github.com/terraform-aws-modules/terraform-aws-ec2-instance.git?ref=v5.5.0"
    multiple_instances = {
     one = {
       instance_type     = "t3.micro"
@@ -39,6 +35,11 @@ terraform {
 
     }
   }
+}
+
+terraform {
+  source  = "github.com/terraform-aws-modules/terraform-aws-ec2-instance.git?ref=v5.5.0"
+  
 }
 
 dependencies {
