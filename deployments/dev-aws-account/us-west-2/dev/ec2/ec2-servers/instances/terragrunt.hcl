@@ -47,20 +47,27 @@ multiple_instances = {
       subnet_id               = dependency.vpc.outputs.private_subnets[0]
       availability_zone       = dependency.vpc.outputs.azs[0]
 
-      root_block_device = [
-        {
-          encrypted           = false
-          volume_type         = "gp3"
-          volume_size         = 30
-        }
-      ]
-      ebs_block_device        = [
-        {
-          encrypted           = false
-          volume_type         = "gp3"
-          volume_size         = 30
-        }
-      ]
+            root_block_device = [
+            {
+              encrypted   = true
+              volume_type = "gp3"
+              throughput  = 125
+              volume_size = 50
+              tags = {
+                Name = "my-root-block"
+              }
+            },
+          ]
+          ebs_block_device = [
+            {
+              device_name = "/dev/sdf"
+              volume_type = "gp3"
+              volume_size = 5
+              throughput  = 125
+              encrypted   = true
+              # kms_key_id  = aws_kms_key.this.arn # you must grant the AWSServiceRoleForEC2Spot service-linked role access to any custom KMS keys
+            }
+  ]
     },
     varnish = {},
     redis = {},
