@@ -1,6 +1,6 @@
 variable "multiple_instances"{
   type = map(map(object(
-    {root_block_device=list(map())}
+    {root_block_device=list()}
   )))
 }
 
