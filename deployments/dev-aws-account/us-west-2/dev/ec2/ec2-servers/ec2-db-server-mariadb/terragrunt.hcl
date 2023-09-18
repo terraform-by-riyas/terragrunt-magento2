@@ -36,6 +36,7 @@ inputs = {
     name = "mariadb-server"
     ami = dependency.aws-data.outputs.ubuntu_arm_graviton_22_04lts
     instance_type          = "r7g.large"
+    ignore_ami_changes = true
     
     root_block_device = [
     {
